@@ -1,4 +1,4 @@
-const productMenuItems = [
+export const productMenuItems = [
     {
         id: 'analytics',
         label: 'Analytics',
