@@ -2,14 +2,21 @@
 
 import { useEffect, useState } from 'react';
 import Image from "next/image";
+import {ServicesSection} from "@shared/ui/services/ui/ServicesSection";
+import {FAQ} from "@shared/ui/FAQ/FAG";
+import PromoForm from "@/features/FromPromo";
+import PaymentMethods from "@shared/ui/PaymentMethods/PaymentMethods";
+import {YandexMap} from "@shared/ui/YandexMap";
 
 export default function Home() {
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisibleH1, setIsVisibleH1] = useState(false);
+    const [isVisibleP, setIsVisibleP] = useState(false);
 
     useEffect(() => {
         // Используем requestAnimationFrame для синхронизации с браузером
         const rafId = requestAnimationFrame(() => {
-            setIsVisible(true);
+            setIsVisibleH1(true);
+            setTimeout(() => setIsVisibleP(true), 3000);
         });
 
         return () => cancelAnimationFrame(rafId);
@@ -28,22 +35,25 @@ export default function Home() {
                         priority
                         objectPosition="center" // "center", "top", "bottom", "left", "right"
 
-                        quality={100}
+                        quality={75}
                     />
-                    <div className={`typewriter-text ${isVisible ? 'typewriter-animation' : ''}`}>
-                        <h1  className="text-4xl font-bold text-white dark:text-white sm:text-5xl text-wrap">
-                            Добро пожаловать в IT-Path
-                        </h1>
-                        <p className="mt-4 text-lg text-white dark:text-gray-300">
-                            Ваш путь к успеху в IT начинается здесь
-                        </p>
+                    <div className={"flex items-center justify-center gap-2"}>
+                        <div >
+                            <h1 className={`text-4xl font-bold text-white dark:text-white sm:text-5xl text-wrap typewriter-text ${isVisibleH1 ? 'typewriter-animation' : ''}`}>
+                                Добро пожаловать в IT-Path
+                            </h1>
+                            <p className={`mt-4 text-lg text-white dark:text-gray-300 typewriter-text ${isVisibleP ? 'typewriter-animation' : ''}`}>
+                                Ваш путь к успеху в IT начинается здесь
+                            </p>
+                        </div>
+                        <PromoForm/>
                     </div>
+
                 </div>
-                <style jsx>{`
-  .clip-hexagon {
-    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-  }
-`}</style>
+              <ServicesSection/>
+                <FAQ/>
+                <PaymentMethods/>
+                <YandexMap/>
             </main>
     );
 }
